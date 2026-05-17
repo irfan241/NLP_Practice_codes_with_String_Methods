@@ -233,33 +233,39 @@ text = "AI is amazing. Machine Learning is powerful! NLP is the future? Yes, it 
 
 stop_words = ["is", "it", "the", "and"]
 
-# convert to lowercase
+# 1. lowercase
 cleaned = text.lower()
 
-# replace sentence punctuation with one common separator
+# 2. replace sentence punctuation with |
 for char in ".!?":
     cleaned = cleaned.replace(char, "|")
 
-# split into sentences
+# 3. split into sentences
 sentences = cleaned.split("|")
 
-# remove empty sentences
-sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
-
-final_sentences = []
+# 4. remove empty sentences (LOOP version)
+clean_sentences = []
 
 for sentence in sentences:
+    sentence = sentence.strip()
+    if sentence != "":
+        clean_sentences.append(sentence)
+
+# 5. process each sentence
+final_sentences = []
+
+for sentence in clean_sentences:
     
-    # split sentence into words
     words = sentence.split()
     
-    # remove stopwords
-    filtered_words = [
-        word for word in words
-        if word not in stop_words
-    ]
+    filtered_words = []
     
-    # join words back into sentence
-    final_sentences.append(" ".join(filtered_words))
+    for word in words:
+        if word not in stop_words:
+            filtered_words.append(word)
+    
+    final_sentence = " ".join(filtered_words)
+    final_sentences.append(final_sentence)
 
+# output
 print(final_sentences)
