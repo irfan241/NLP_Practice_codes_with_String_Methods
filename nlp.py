@@ -213,3 +213,53 @@ for word in words:
     if word not in stop_words:
         freq[word] = freq.get(word, 0) + 1
 print(freq)
+
+
+#Q.No.11
+"""
+Write Python code to:
+
+1. Convert text to lowercase
+2. Split text into sentences using ., !, ?
+3. Remove empty sentences
+4. For each sentence:
+split into words
+remove stopwords:
+["is", "it", "the", "and"]
+5. Print list of cleaned sentences
+"""
+
+text = "AI is amazing. Machine Learning is powerful! NLP is the future? Yes, it is."
+
+stop_words = ["is", "it", "the", "and"]
+
+# convert to lowercase
+cleaned = text.lower()
+
+# replace sentence punctuation with one common separator
+for char in ".!?":
+    cleaned = cleaned.replace(char, "|")
+
+# split into sentences
+sentences = cleaned.split("|")
+
+# remove empty sentences
+sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
+
+final_sentences = []
+
+for sentence in sentences:
+    
+    # split sentence into words
+    words = sentence.split()
+    
+    # remove stopwords
+    filtered_words = [
+        word for word in words
+        if word not in stop_words
+    ]
+    
+    # join words back into sentence
+    final_sentences.append(" ".join(filtered_words))
+
+print(final_sentences)
